@@ -69,7 +69,6 @@ class _SpeechScreenState extends State<SpeechScreen> {
   late stt.SpeechToText _speech;
   bool _isListening = false;
   String _text = 'Press the button and start speaking';
-  double _confidence = 1.0;
 
   @override
   void initState() {
@@ -92,7 +91,7 @@ class _SpeechScreenState extends State<SpeechScreen> {
         repeatPauseDuration: const Duration(milliseconds: 100),
         repeat: true,
         child: FloatingActionButton(
-          onPressed: _listen,
+          onPressed: () => _toggleListen(),
           child: Icon(_isListening ? Icons.mic : Icons.mic_none),
         ),
       ),
@@ -114,26 +113,37 @@ class _SpeechScreenState extends State<SpeechScreen> {
     );
   }
 
-  void _listen() async {
+  void _toggleListen() {
     if (!_isListening) {
-      bool available = await _speech.initialize(
-        onStatus: (val) => print('onStatus: $val'),
-        onError: (val) => print('onError: $val'),
-      );
-      if (available) {
-        setState(() => _isListening = true);
-        _speech.listen(
-          onResult: (val) => setState(() {
-            _text = val.recognizedWords;
-            if (val.hasConfidenceRating && val.confidence > 0) {
-              _confidence = val.confidence;
-            }
-          }),
-        );
-      }
+      _startListening();
     } else {
-      setState(() => _isListening = false);
-      _speech.stop();
+      _stopListening();
     }
+  }
+
+  void _startListening() async {
+    bool available = await _speech.initialize(
+      onStatus: (val) {
+        print('onStatus: $val');
+        if (val == 'notListening') {
+          _startListening();
+        }
+      },
+      onError: (val) => print('onError: $val'),
+    );
+    if (available) {
+      setState(() => _isListening = true);
+      _speech.listen(
+        onResult: (val) => setState(() {
+          _text = val.recognizedWords;
+        }),
+        cancelOnError: false,
+      );
+    }
+  }
+
+  void _stopListening() {
+    setState(() => _isListening = false);
+    _speech.stop();
   }
 }
