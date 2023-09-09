@@ -1,6 +1,6 @@
 {
-    "name": "hearingaid",
-    "short_name": "hearingaid",
+    "name": "temp",
+    "short_name": "temp",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

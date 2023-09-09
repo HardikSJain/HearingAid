@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "495608440166",
+    "project_id": "deafguardian",
+    "storage_bucket": "deafguardian.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:495608440166:android:b14711e6c4224b00f254a7",
+        "android_client_info": {
+          "package_name": "com.example.temp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "495608440166-o99eavp0puosh5n58b1q3kis179ifms8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAA4GFrmW-rqEeEMQJDKzgIudCDDlyCtcg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "495608440166-o99eavp0puosh5n58b1q3kis179ifms8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
